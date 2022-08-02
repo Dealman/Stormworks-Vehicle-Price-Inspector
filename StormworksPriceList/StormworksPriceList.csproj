@@ -6,6 +6,7 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>StormworksPriceInspector</AssemblyName>
     <RootNamespace>StormworksPriceInspector</RootNamespace>
+    <ApplicationIcon>AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
