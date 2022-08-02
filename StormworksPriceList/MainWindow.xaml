@@ -46,14 +46,14 @@
                     <DataGrid.Resources>
                         <!-- Column Header Style -->
                         <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="Background" Value="#4091b4"/>
-                            <Setter Property="Foreground" Value="#202020"/>
+                            <Setter Property="Background" Value="{Binding Source={x:Static customClasses:StormworksPalette.Background_Blue}}"/>
+                            <Setter Property="Foreground" Value="{Binding Source={x:Static customClasses:StormworksPalette.Text_Inactive}}"/>
                             <Setter Property="FontWeight" Value="DemiBold"/>
                             <Setter Property="Height" Value="26"/>
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
                             <Style.Triggers>
                                 <Trigger Property="IsMouseOver" Value="true">
-                                    <Setter Property="BorderBrush" Value="#BF7856"/>
+                                    <Setter Property="BorderBrush" Value="{Binding Source={x:Static customClasses:StormworksPalette.Text_Header}}"/>
                                     <Setter Property="BorderThickness" Value="2"/>
                                 </Trigger>
                             </Style.Triggers>
