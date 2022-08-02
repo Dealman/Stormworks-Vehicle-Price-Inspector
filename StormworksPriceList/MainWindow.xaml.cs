@@ -7,6 +7,7 @@ using System.Linq;
 using Xceed.Wpf.Toolkit;
 using System.Windows.Media;
 using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace StormworksPriceList
 {
@@ -137,6 +138,20 @@ namespace StormworksPriceList
             ScrollViewer scv = (ScrollViewer)sender;
             scv.ScrollToHorizontalOffset(scv.HorizontalOffset - e.Delta);
             e.Handled = true;
+        }
+
+        private void TitleGrid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (TitleGrid.IsMouseOver)
+            {
+                Cursor = Cursors.SizeAll;
+                DragMove();
+            }
+        }
+
+        private void TitleGrid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Cursor = null;
         }
     }
 }
