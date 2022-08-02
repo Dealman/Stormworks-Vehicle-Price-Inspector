@@ -7,6 +7,19 @@
     <AssemblyName>StormworksPriceInspector</AssemblyName>
     <RootNamespace>StormworksPriceInspector</RootNamespace>
     <ApplicationIcon>AppIcon.ico</ApplicationIcon>
+    <SignAssembly>false</SignAssembly>
+    <Authors>Dealman</Authors>
+    <Product>Stormworks Price Inspector</Product>
+    <Description>Tool for Stormworks to inspect the price of various components</Description>
+    <Copyright>Copyright 1876 - 2022</Copyright>
+    <PackageIcon></PackageIcon>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/Dealman/Stormworks-Vehicle-Price-Inspector</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageProjectUrl>https://github.com/Dealman/Stormworks-Vehicle-Price-Inspector</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
