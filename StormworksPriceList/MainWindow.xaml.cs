@@ -8,6 +8,7 @@ using Xceed.Wpf.Toolkit;
 using System.Windows.Media;
 using System.Collections.Generic;
 using System.Windows.Input;
+using StormworksPriceInspector.Classes;
 using System.Diagnostics;
 
 namespace StormworksPriceList
@@ -156,6 +157,13 @@ namespace StormworksPriceList
 
         private void MinimizeButton_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) => WindowState = System.Windows.WindowState.Minimized;
         private void CloseButton_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) => Close();
+        private void MinimizeButton_MouseEnter(object sender, MouseEventArgs e) => MinimizeButton.Foreground = StormworksPalette.Text_Active;
+
+        private void MinimizeButton_MouseLeave(object sender, MouseEventArgs e) => MinimizeButton.Foreground = StormworksPalette.Text_Inactive;
+
+        private void CloseButton_MouseEnter(object sender, MouseEventArgs e) => CloseButton.Foreground = StormworksPalette.Text_Active;
+
+        private void CloseButton_MouseLeave(object sender, MouseEventArgs e) => CloseButton.Foreground = StormworksPalette.Text_Inactive;
         #endregion
     }
 }
