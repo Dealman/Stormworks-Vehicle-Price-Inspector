@@ -142,15 +142,8 @@ namespace StormworksPriceList
 
         private void TitleGrid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (TitleGrid.IsMouseOver)
-            {
-                Cursor = Cursors.SizeAll;
-                DragMove();
-            }
-        }
-
-        private void TitleGrid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
+            Cursor = Cursors.SizeAll;
+            DragMove();
             Cursor = null;
         }
     }
