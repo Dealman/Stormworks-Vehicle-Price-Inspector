@@ -32,10 +32,10 @@ namespace StormworksPriceList.Controls
 
             VehicleImage.Source = vehicle.Icon;
             NameLabel.Text = Vehicle.Name;
-            ValueLabel.Text = $"${Vehicle.GetVehicleCost()}";
+            ValueLabel.Text = $"${String.Format("{0:N}", Vehicle.GetVehicleCost()).Replace(",00", "")}";//$"${Vehicle.GetVehicleCost()}";
             UpdatedLabel.Text = Vehicle.LastUpdated.ToString();
         }
-
+        //string html = String.Format("Order Total: {0:C}", moneyvalue); 
         void UpdateBackground()
         {
             if (IsSelected)

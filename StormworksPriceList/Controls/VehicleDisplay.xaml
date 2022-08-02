@@ -20,7 +20,7 @@
             </Grid>
             <Grid Margin="0,5,0,5">
                 <Rectangle Width="128" Height="32" Fill="#FF3CF482" RadiusX="16" RadiusY="16"/>
-                <TextBlock x:Name="ValueLabel" Text="$46 174" Foreground="{Binding Source={x:Static customClasses:StormworksPalette.Text_Inactive}}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="DemiBold"/>
+                <TextBlock x:Name="ValueLabel" Text="$10 000" Foreground="{Binding Source={x:Static customClasses:StormworksPalette.Text_Inactive}}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="DemiBold"/>
             </Grid>
         </StackPanel>     
     </Grid>
