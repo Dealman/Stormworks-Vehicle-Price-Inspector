@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:customClasses="clr-namespace:StormworksPriceInspector.Classes"
              xmlns:local="clr-namespace:StormworksPriceList.Controls"
              mc:Ignorable="d">
     <Grid x:Name="MainGrid" MouseEnter="MainGrid_MouseEnter" MouseLeave="MainGrid_MouseLeave" Margin="5">
@@ -10,16 +11,16 @@
             <Image x:Name="VehicleImage" Width="128" Height="128" Margin="5"/>
             <!--<Rectangle Width="128" Height="128" Fill="Cyan" Margin="5"/>-->
             <Grid Margin="0,5,0,0">
-                <Rectangle Width="128" Height="32" Fill="#FF151515" RadiusX="16" RadiusY="16"/>
-                <TextBlock x:Name="NameLabel" Text="Vehicle Name" Foreground="#FFE6E6E6" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="DemiBold"/>
+                <Rectangle Width="128" Height="32" Fill="{Binding Source={x:Static customClasses:StormworksPalette.Background_Dark_1}}" RadiusX="16" RadiusY="16"/>
+                <TextBlock x:Name="NameLabel" Text="Vehicle Name" Foreground="{Binding Source={x:Static customClasses:StormworksPalette.Text_Active}}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="DemiBold"/>
             </Grid>
             <Grid Margin="0,5,0,0">
-                <Rectangle Width="128" Height="32" Fill="#FF151515" RadiusX="16" RadiusY="16"/>
-                <TextBlock x:Name="UpdatedLabel" Text="01-08-22 15:11" Foreground="#FFE6E6E6" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Rectangle Width="128" Height="32" Fill="{Binding Source={x:Static customClasses:StormworksPalette.Background_Dark_1}}" RadiusX="16" RadiusY="16"/>
+                <TextBlock x:Name="UpdatedLabel" Text="01-08-22 15:11" Foreground="{Binding Source={x:Static customClasses:StormworksPalette.Text_Active}}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
             <Grid Margin="0,5,0,5">
                 <Rectangle Width="128" Height="32" Fill="#FF3CF482" RadiusX="16" RadiusY="16"/>
-                <TextBlock x:Name="ValueLabel" Text="$46 174" Foreground="#FF232323" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="DemiBold"/>
+                <TextBlock x:Name="ValueLabel" Text="$46 174" Foreground="{Binding Source={x:Static customClasses:StormworksPalette.Text_Inactive}}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="DemiBold"/>
             </Grid>
         </StackPanel>     
     </Grid>
