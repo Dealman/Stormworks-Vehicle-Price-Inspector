@@ -6,6 +6,7 @@ using StormworksPriceList.Controls;
 using System.Linq;
 using Xceed.Wpf.Toolkit;
 using System.Windows.Media;
+using System.Collections.Generic;
 
 namespace StormworksPriceList
 {
@@ -14,10 +15,16 @@ namespace StormworksPriceList
         static string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         static string vehiclesPath = Path.Combine(appDataPath, "Stormworks", "data", "vehicles");
 
+        private List<VehicleDisplay> vehicleDisplays = new List<VehicleDisplay>();
+
         public MainWindow()
         {
             InitializeComponent();
             RegistryManager.Initialize();
+
+            // TODO: Use ObservableCollection instead, bind to ImageContainer
+            if (vehicleDisplays.Count > 0)
+                vehicleDisplays.Clear();
 
             // [TODO: Sort this newest to last]
             if (Directory.Exists(vehiclesPath))
@@ -32,24 +39,11 @@ namespace StormworksPriceList
 
                     vehicleDisplay.MouseLeftButtonUp += VehicleDisplay_MouseLeftButtonUp;
 
+                    vehicleDisplays.Add(vehicleDisplay);
                     ImageContainer.Children.Add(vehicleDisplay);
                 }
             }
         }
-
-        string[] myColors =
-            {
-                "#9c9fd5",
-                "#7f8dd8",
-                "#cfdae7",
-                "#4fa2e6",
-                "#154d7a",
-                "#35d7fb",
-                "#aff7f0",
-                "#0c6d57",
-                "#36a27f",
-                "#89ddba"
-            };
 
         Color[] myNewColors =
             {
@@ -65,10 +59,19 @@ namespace StormworksPriceList
                 Color.FromRgb(0, 89, 255)
             };
 
+        // TODO: Refactor this method
         private void VehicleDisplay_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            // New selection, remove old pie chart
             if (PieContainer.Children.Count > 0)
                 PieContainer.Children.Clear();
+
+            // Remove any previously selected display
+            for (int i = 0; i < vehicleDisplays.Count; i++)
+            {
+                if (vehicleDisplays[i].IsSelected)
+                    vehicleDisplays[i].IsSelected = false;
+            }
 
             VehicleDisplay vehicleDisplay = (VehicleDisplay)sender;
             if (vehicleDisplay != null && vehicleDisplay.Vehicle != null)
@@ -90,7 +93,6 @@ namespace StormworksPriceList
                     Pie pie = new Pie
                     {
                         Slice = (double)sortedList[i].Price / top10Cost,
-                        //Fill = (SolidColorBrush)new BrushConverter().ConvertFrom(myColors[i]),
                         Fill = new SolidColorBrush(myNewColors[9-i]),
                         Opacity = 0.5,
                         Width = 128,
@@ -109,7 +111,6 @@ namespace StormworksPriceList
 
                     lastPie = pie;
                     PieContainer.Children.Add(pie);
-                    //Debug.WriteLine($"[{sortedList[i].Name}]: x{sortedList[i].Amount}, ${sortedList[i].Price} á ${sortedList[i].GetTotalCost()}");
                 }
             }
         }

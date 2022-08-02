@@ -7,6 +7,9 @@ namespace StormworksPriceList.Controls
 {
     public partial class VehicleDisplay : UserControl
     {
+        private bool isSelected = false;
+        public bool IsSelected { get { return isSelected; } set { isSelected = value; UpdateBackground(); } }
+
         static SolidColorBrush Brush_SWBlue = new SolidColorBrush(Color.FromRgb(64, 145, 180));
 
         public Vehicle Vehicle { get; set; }
@@ -33,6 +36,14 @@ namespace StormworksPriceList.Controls
             UpdatedLabel.Text = Vehicle.LastUpdated.ToString();
         }
 
+        void UpdateBackground()
+        {
+            if (IsSelected)
+                MainGrid.Background = Brush_SWBlue;
+            else
+                MainGrid.Background = Brushes.Transparent;
+        }
+
         private void MainGrid_MouseEnter(object sender, MouseEventArgs e)
         {
             MainGrid.Background = Brush_SWBlue;
@@ -40,12 +51,13 @@ namespace StormworksPriceList.Controls
 
         private void MainGrid_MouseLeave(object sender, MouseEventArgs e)
         {
-            MainGrid.Background = Brushes.Transparent;
+            if (!IsSelected)
+                MainGrid.Background = Brushes.Transparent;
         }
 
         private void MainGrid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-
+            IsSelected = true;
         }
     }
 }
