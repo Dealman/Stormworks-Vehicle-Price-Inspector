@@ -89,7 +89,7 @@ namespace StormworksPriceList
                 // Calculate total cost for top 10 most expensive component groups
                 for (int i = 0; i < (sortedList.Count >= 10 ? 10 : sortedList.Count); i++)
                 {
-                    top10Cost += sortedList[i].Price;//GetTotalCost();
+                    top10Cost += sortedList[i].TotalCost;//GetTotalCost();
                 }
 
                 // Build pie chart
@@ -97,7 +97,7 @@ namespace StormworksPriceList
                 {
                     Pie pie = new Pie
                     {
-                        Slice = (double)sortedList[i].Price / top10Cost,
+                        Slice = (double)sortedList[i].TotalCost / top10Cost,
                         Fill = new SolidColorBrush(myNewColors[9-i]),
                         Opacity = 0.5,
                         Width = 128,
