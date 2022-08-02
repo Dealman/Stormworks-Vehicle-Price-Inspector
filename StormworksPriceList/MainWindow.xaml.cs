@@ -21,6 +21,7 @@ namespace StormworksPriceList
         {
             InitializeComponent();
             RegistryManager.Initialize();
+            PieContainer.Children.Clear();
 
             // TODO: Use ObservableCollection instead, bind to ImageContainer
             if (vehicleDisplays.Count > 0)
