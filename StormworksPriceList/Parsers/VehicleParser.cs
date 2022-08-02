@@ -92,8 +92,11 @@ namespace StormworksPriceList
                     {
                         Name = "Block",
                         Price = blockCost,
-                        Amount = blockCount
+                        Amount = blockCount,
+                        TotalCost = blockCost * blockCount
                     };
+
+                    componentDatas.Add(componentData);
                 }
             }
 
