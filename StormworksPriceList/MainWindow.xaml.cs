@@ -8,6 +8,7 @@ using Xceed.Wpf.Toolkit;
 using System.Windows.Media;
 using System.Collections.Generic;
 using System.Windows.Input;
+using System.Diagnostics;
 
 namespace StormworksPriceList
 {
@@ -121,6 +122,7 @@ namespace StormworksPriceList
             }
         }
 
+        #region Pie Chart Events
         private void Pie_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             Pie pie = (Pie)sender;
@@ -132,7 +134,9 @@ namespace StormworksPriceList
             Pie pie = (Pie)sender;
             pie.Opacity = 1.0;
         }
+        #endregion
 
+        #region MainWindow UI Events
         private void ScrollViewer_PreviewMouseWheel(object sender, System.Windows.Input.MouseWheelEventArgs e)
         {
             ScrollViewer scv = (ScrollViewer)sender;
@@ -142,9 +146,16 @@ namespace StormworksPriceList
 
         private void TitleGrid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Cursor = Cursors.SizeAll;
-            DragMove();
-            Cursor = null;
+            if (!MinimizeButton.IsMouseOver && !CloseButton.IsMouseOver)
+            {
+                Cursor = Cursors.SizeAll;
+                DragMove();
+                Cursor = null;
+            }
         }
+
+        private void MinimizeButton_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) => WindowState = System.Windows.WindowState.Minimized;
+        private void CloseButton_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) => Close();
+        #endregion
     }
 }
