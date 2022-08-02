@@ -14,4 +14,4 @@ This is a simple tool to help you visualize which components add up to the total
 • Less crappy UI design  
 
 # Screenshots
-![image](https://user-images.githubusercontent.com/7038067/182358745-1ee4911c-59e5-4304-acde-c4e6b85df0c9.png)
+![image](https://user-images.githubusercontent.com/7038067/182363204-1abfebf9-ac31-4094-9993-9a4de4c0119d.png)
