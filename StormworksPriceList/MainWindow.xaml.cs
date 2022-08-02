@@ -76,9 +76,10 @@ namespace StormworksPriceList
             VehicleDisplay vehicleDisplay = (VehicleDisplay)sender;
             if (vehicleDisplay != null && vehicleDisplay.Vehicle != null)
             {
+                vehicleDisplay.IsSelected = true;
                 int totalVehicleCost = vehicleDisplay.Vehicle.GetVehicleCost();
                 int top10Cost = 0;
-                var sortedList = vehicleDisplay.Vehicle.ComponentDatas.OrderByDescending(d => d.GetTotalCost()).ToList();
+                var sortedList = vehicleDisplay.Vehicle.ComponentDatas.OrderByDescending(d => d.TotalCost).ToList();
                 Pie lastPie = null;
 
                 // Calculate total cost for top 10 most expensive component groups
@@ -100,7 +101,7 @@ namespace StormworksPriceList
                         Mode = PieMode.Slice,
                         Stroke = Brushes.Black,
                         StrokeThickness = 1.0,
-                        ToolTip = $"{sortedList[i].Name}[x{sortedList[i].Amount}]: ${sortedList[i].GetTotalCost()} (${sortedList[i].Price} each)"
+                        ToolTip = $"{sortedList[i].Name}[x{sortedList[i].Amount}]: ${sortedList[i].TotalCost} (${sortedList[i].Price} each)"
                     };
 
                     pie.MouseEnter += Pie_MouseEnter;
@@ -112,6 +113,9 @@ namespace StormworksPriceList
                     lastPie = pie;
                     PieContainer.Children.Add(pie);
                 }
+
+                // Populate DataGridening
+                ComponentDataGrid.ItemsSource = vehicleDisplay.Vehicle.ComponentDatas;
             }
         }
 

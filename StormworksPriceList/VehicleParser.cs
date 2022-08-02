@@ -78,7 +78,8 @@ namespace StormworksPriceList
                     {
                         Name = componentDisplayNames[i],
                         Price = componentPrices[i],
-                        Amount = componentAmounts[i]
+                        Amount = componentAmounts[i],
+                        TotalCost = componentPrices[i] * componentAmounts[i]
                     };
 
                     componentDatas.Add(componentData);

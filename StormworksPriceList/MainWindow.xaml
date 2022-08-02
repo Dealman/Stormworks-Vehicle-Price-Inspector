@@ -40,7 +40,7 @@
                         <wpfToolkit:Pie x:Name="MyPie2" Width="128" Height="128" Fill="HotPink" StartAngle="{Binding EndAngle, ElementName=MyPie, Mode=OneWay}" Slice="0.5"/>-->
                     </Grid>
                 </StackPanel>
-                <DataGrid Margin="5" DockPanel.Dock="Left" Background="Transparent" BorderBrush="#FF505050" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="True" d:ItemsSource="{d:SampleData}">
+                <DataGrid x:Name="ComponentDataGrid" Margin="5" DockPanel.Dock="Left" Background="Transparent" BorderBrush="#FF505050" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserSortColumns="True" CanUserResizeRows="False" RowHeaderWidth="0" IsReadOnly="True" VerticalScrollBarVisibility="Hidden" d:ItemsSource="{d:SampleData}">
                     <DataGrid.Resources>
                         <!-- Column Header Style -->
                         <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
@@ -75,10 +75,10 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name"/>
-                        <DataGridTextColumn Header="Individual Price"/>
-                        <DataGridTextColumn Header="Amount"/>
-                        <DataGridTextColumn Header="Total Price" Width="*"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Individual Price" Binding="{Binding Price}"/>
+                        <DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
+                        <DataGridTextColumn Header="Total Price" Width="*" Binding="{Binding TotalCost}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>

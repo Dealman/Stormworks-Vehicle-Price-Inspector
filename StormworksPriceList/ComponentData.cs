@@ -5,10 +5,6 @@
         public string Name { get; set; }
         public int Price { get; set; }
         public int Amount { get; set; }
-
-        public int GetTotalCost()
-        {
-            return Price * Amount;
-        }
+        public int TotalCost { get; set; }
     }
 }

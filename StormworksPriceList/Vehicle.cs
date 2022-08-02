@@ -50,7 +50,7 @@ namespace StormworksPriceList
 
                 foreach (ComponentData componentData in ComponentDatas)
                 {
-                    totalCost += componentData.GetTotalCost();
+                    totalCost += componentData.TotalCost;
                 }
 
                 return totalCost;

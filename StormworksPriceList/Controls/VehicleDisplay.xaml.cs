@@ -54,10 +54,5 @@ namespace StormworksPriceList.Controls
             if (!IsSelected)
                 MainGrid.Background = Brushes.Transparent;
         }
-
-        private void MainGrid_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            IsSelected = true;
-        }
     }
 }

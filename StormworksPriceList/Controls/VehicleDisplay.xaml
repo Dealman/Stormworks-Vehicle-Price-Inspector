@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StormworksPriceList.Controls"
              mc:Ignorable="d">
-    <Grid x:Name="MainGrid" MouseEnter="MainGrid_MouseEnter" MouseLeave="MainGrid_MouseLeave" Margin="5" MouseLeftButtonUp="MainGrid_MouseLeftButtonUp">
+    <Grid x:Name="MainGrid" MouseEnter="MainGrid_MouseEnter" MouseLeave="MainGrid_MouseLeave" Margin="5">
         <StackPanel Orientation="Vertical">
             <Image x:Name="VehicleImage" Width="128" Height="128" Margin="5"/>
             <!--<Rectangle Width="128" Height="128" Fill="Cyan" Margin="5"/>-->
