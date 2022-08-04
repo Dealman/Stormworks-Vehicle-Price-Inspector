@@ -1,4 +1,4 @@
-﻿<Window x:Class="StormworksPriceList.MainWindow"
+﻿<Window x:Name="MainApplication" x:Class="StormworksPriceList.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -12,13 +12,32 @@
     <Grid>
         <DockPanel>
             <Grid x:Name="TitleGrid" Background="#4091b4" VerticalAlignment="Top" DockPanel.Dock="Top" MouseLeftButtonDown="TitleGrid_MouseLeftButtonDown">
-                <TextBlock Text="Stormworks Vehicle Price Inspector" Foreground="{Binding Source={x:Static customClasses:StormworksPalette.Text_Inactive}}" FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Text="Stormworks Vehicle Price Inspector" Foreground="{Binding Source={x:Static customClasses:StormworksPalette.Text_Active}}" FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <TextBlock x:Name="MinimizeButton" Text="-" Width="22" Foreground="{Binding Source={x:Static customClasses:StormworksPalette.Text_Inactive}}" FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Right" Margin="0,0,5,5" ToolTip="Minimize" MouseLeftButtonUp="MinimizeButton_MouseLeftButtonUp" TextAlignment="Center" MouseEnter="MinimizeButton_MouseEnter" MouseLeave="MinimizeButton_MouseLeave"/>
                     <TextBlock x:Name="CloseButton" Text="X" Width="22" Foreground="{Binding Source={x:Static customClasses:StormworksPalette.Text_Inactive}}" FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Right" Margin="0,0,5,5" ToolTip="Exit" TextAlignment="Center" MouseLeftButtonUp="CloseButton_MouseLeftButtonUp" MouseEnter="CloseButton_MouseEnter" MouseLeave="CloseButton_MouseLeave"/>
                 </StackPanel>
             </Grid>
             <TextBlock Text="Vehicles" Foreground="{Binding Source={x:Static customClasses:StormworksPalette.Text_Header}}" FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Center" DockPanel.Dock="Top" Margin="0,5,0,0"/>
+            <DockPanel DockPanel.Dock="Top">
+                <TextBlock Text="Sorting Mode: " Foreground="{Binding Source={x:Static customClasses:StormworksPalette.Text_Header}}" FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Center" DockPanel.Dock="Left" Margin="5,5,0,0" VerticalAlignment="Stretch"/>
+                <Grid x:Name="sortButtonName" Margin="5,5,0,5" MouseLeftButtonUp="Button_MouseLeftButtonUp" MouseEnter="Button_MouseEnterLeave" MouseLeave="Button_MouseEnterLeave">
+                    <Rectangle Fill="{Binding Source={x:Static customClasses:StormworksPalette.Background_Blue}}" Width="128" Height="32" RadiusX="10" RadiusY="10"/>
+                    <TextBlock Text="Name" Foreground="{Binding Source={x:Static customClasses:StormworksPalette.Text_Active}}" TextAlignment="Center" VerticalAlignment="Center" FontWeight="DemiBold"/>
+                </Grid>
+                <Grid x:Name="sortButtonCost" Margin="5,5,0,5" MouseLeftButtonUp="Button_MouseLeftButtonUp" MouseEnter="Button_MouseEnterLeave" MouseLeave="Button_MouseEnterLeave">
+                    <Rectangle Fill="{Binding Source={x:Static customClasses:StormworksPalette.Background_Dark_1}}" Width="128" Height="32" RadiusX="10" RadiusY="10"/>
+                    <TextBlock Text="Cost" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" FontWeight="DemiBold"/>
+                </Grid>
+                <Grid x:Name="sortButtonDate" Margin="5,5,0,5" HorizontalAlignment="Stretch" MouseLeftButtonUp="Button_MouseLeftButtonUp" MouseEnter="Button_MouseEnterLeave" MouseLeave="Button_MouseEnterLeave">
+                    <Rectangle Fill="{Binding Source={x:Static customClasses:StormworksPalette.Background_Dark_1}}" Width="128" Height="32" RadiusX="10" RadiusY="10"/>
+                    <TextBlock Text="Last Updated" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" FontWeight="DemiBold"/>
+                </Grid>
+                <Grid x:Name="sortButtonDirection" Margin="0,5,5,5" HorizontalAlignment="Right" MouseLeftButtonUp="Button_MouseLeftButtonUp" MouseEnter="Button_MouseEnterLeave" MouseLeave="Button_MouseEnterLeave">
+                    <Rectangle Fill="{Binding Source={x:Static customClasses:StormworksPalette.Background_Blue}}" Width="128" Height="32" RadiusX="10" RadiusY="10"/>
+                    <TextBlock x:Name="sortDirectionLabel" Text="Ascending" Foreground="White" TextAlignment="Center" VerticalAlignment="Center" FontWeight="DemiBold"/>
+                </Grid>
+            </DockPanel>
             <Border BorderBrush="#FF505050" BorderThickness="2" Margin="5" DockPanel.Dock="Top">
                 <Grid VerticalAlignment="Top">
                     <ScrollViewer Margin="5" VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Hidden" PreviewMouseWheel="ScrollViewer_PreviewMouseWheel">
@@ -77,10 +96,10 @@
                         </Style>
                     </DataGrid.Resources>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
-                        <DataGridTextColumn Header="Individual Price" Binding="{Binding Price}"/>
-                        <DataGridTextColumn Header="Amount" Binding="{Binding Amount}"/>
-                        <DataGridTextColumn Header="Total Price" Width="*" Binding="{Binding TotalCost}"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                        <DataGridTextColumn Header="Individual Price" Binding="{Binding Price}" Width="*"/>
+                        <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="*"/>
+                        <DataGridTextColumn Header="Total Price" Binding="{Binding TotalCost}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>

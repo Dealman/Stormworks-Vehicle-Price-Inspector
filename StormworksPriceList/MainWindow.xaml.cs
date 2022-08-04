@@ -10,21 +10,39 @@ using System.Collections.Generic;
 using System.Windows.Input;
 using StormworksPriceInspector.Classes;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using StormworksPriceInspector.Enums;
+using System.Windows.Shapes;
 
 namespace StormworksPriceList
 {
     public partial class MainWindow : Window
     {
         static string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        static string vehiclesPath = Path.Combine(appDataPath, "Stormworks", "data", "vehicles");
+        static string vehiclesPath = System.IO.Path.Combine(appDataPath, "Stormworks", "data", "vehicles");
 
+        #region Sorting Variables
+        private SortingEnum.SortDirection sortDirection = SortingEnum.SortDirection.Ascending;
+        private SortingEnum.SortDirection SortDirection { get { return sortDirection; } set { sortDirection = value; sortDirectionLabel.Text = sortDirection.ToString(); UpdateVehicleDisplay(); } }
+        private SortingEnum.SortOption sortOption = SortingEnum.SortOption.Name;
+        private SortingEnum.SortOption SortOption { get { return sortOption; } set { sortOption = value; UpdateVehicleDisplay(); } }
+        #endregion
         private List<VehicleDisplay> vehicleDisplays = new List<VehicleDisplay>();
+        private List<Rectangle> buttonRectangles;
 
         public MainWindow()
         {
             InitializeComponent();
             RegistryManager.Initialize();
             PieContainer.Children.Clear();
+
+            // Populate rectangle list
+            buttonRectangles = new List<Rectangle> {
+                (Rectangle)sortButtonName.Children[0],
+                (Rectangle)sortButtonCost.Children[0],
+                (Rectangle)sortButtonDate.Children[0]
+            };
 
             // TODO: Use ObservableCollection instead, bind to ImageContainer
             if (vehicleDisplays.Count > 0)
@@ -44,12 +62,13 @@ namespace StormworksPriceList
                     vehicleDisplay.MouseLeftButtonUp += VehicleDisplay_MouseLeftButtonUp;
 
                     vehicleDisplays.Add(vehicleDisplay);
-                    ImageContainer.Children.Add(vehicleDisplay);
                 }
+
+                UpdateVehicleDisplay();
             }
         }
 
-        Color[] myNewColors =
+        Color[] pieChartColors =
             {
                 Color.FromRgb(143, 0, 0),
                 Color.FromRgb(255, 0, 43),
@@ -98,7 +117,7 @@ namespace StormworksPriceList
                     Pie pie = new Pie
                     {
                         Slice = (double)sortedList[i].TotalCost / top10Cost,
-                        Fill = new SolidColorBrush(myNewColors[9-i]),
+                        Fill = new SolidColorBrush(pieChartColors[9-i]),
                         Opacity = 0.5,
                         Width = 128,
                         Height = 128,
@@ -144,7 +163,6 @@ namespace StormworksPriceList
             scv.ScrollToHorizontalOffset(scv.HorizontalOffset - e.Delta);
             e.Handled = true;
         }
-
         private void TitleGrid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (!MinimizeButton.IsMouseOver && !CloseButton.IsMouseOver)
@@ -154,7 +172,6 @@ namespace StormworksPriceList
                 Cursor = null;
             }
         }
-
         private void MinimizeButton_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) => WindowState = System.Windows.WindowState.Minimized;
         private void CloseButton_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) => Close();
         private void MinimizeButton_MouseEnter(object sender, MouseEventArgs e) => MinimizeButton.Foreground = StormworksPalette.Text_Active;
@@ -164,6 +181,58 @@ namespace StormworksPriceList
         private void CloseButton_MouseEnter(object sender, MouseEventArgs e) => CloseButton.Foreground = StormworksPalette.Text_Active;
 
         private void CloseButton_MouseLeave(object sender, MouseEventArgs e) => CloseButton.Foreground = StormworksPalette.Text_Inactive;
+        private void Button_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (sender == sortButtonDirection)
+                SortDirection = (SortDirection == SortingEnum.SortDirection.Ascending) ? SortingEnum.SortDirection.Descending : SortingEnum.SortDirection.Ascending;
+
+            if (sender == sortButtonName)
+                SortOption = SortingEnum.SortOption.Name;
+
+            if (sender == sortButtonCost)
+                SortOption = SortingEnum.SortOption.Cost;
+
+            if (sender == sortButtonDate)
+                SortOption = SortingEnum.SortOption.Date;
+        }
+        private void Button_MouseEnterLeave(object sender, MouseEventArgs e)
+        {
+            var grid = sender as Grid;
+
+            if (grid is null)
+                return;
+
+            if (e.RoutedEvent.Name == "MouseEnter")
+                grid.Children[0].Opacity = 0.5;
+
+            if (e.RoutedEvent.Name == "MouseLeave")
+                grid.Children[0].Opacity = 1.0;
+
+        }
         #endregion
+
+        private void UpdateVehicleDisplay()
+        {
+            ImageContainer.Children.Clear();
+            buttonRectangles.ForEach(x => x.Fill = StormworksPalette.Background_Dark_1);
+
+            switch (sortOption)
+            {
+                case SortingEnum.SortOption.Name:
+                    vehicleDisplays = (SortDirection == SortingEnum.SortDirection.Ascending) ? vehicleDisplays.OrderBy(x => x.Vehicle.Name).ToList() : vehicleDisplays.OrderByDescending(x => x.Vehicle.Name).ToList();
+                    buttonRectangles[0].Fill = StormworksPalette.Background_Blue;
+                    break;
+                case SortingEnum.SortOption.Cost:
+                    vehicleDisplays = (SortDirection == SortingEnum.SortDirection.Ascending) ? vehicleDisplays.OrderBy(x => x.Vehicle.GetVehicleCost()).ToList() : vehicleDisplays.OrderByDescending(x => x.Vehicle.GetVehicleCost()).ToList();
+                    buttonRectangles[1].Fill = StormworksPalette.Background_Blue;
+                    break;
+                case SortingEnum.SortOption.Date:
+                    vehicleDisplays = (SortDirection == SortingEnum.SortDirection.Ascending) ? vehicleDisplays.OrderBy(x => x.Vehicle.LastUpdated).ToList() : vehicleDisplays.OrderByDescending(x => x.Vehicle.LastUpdated).ToList();
+                    buttonRectangles[2].Fill = StormworksPalette.Background_Blue;
+                    break;
+            }
+
+            vehicleDisplays.ForEach(x => ImageContainer.Children.Add(x));
+        }
     }
 }
