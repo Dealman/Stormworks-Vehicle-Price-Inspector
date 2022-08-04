@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using StormworksPriceInspector.Classes;
 
 namespace StormworksPriceList.Controls
 {
@@ -9,8 +10,6 @@ namespace StormworksPriceList.Controls
     {
         private bool isSelected = false;
         public bool IsSelected { get { return isSelected; } set { isSelected = value; UpdateBackground(); } }
-
-        static SolidColorBrush Brush_SWBlue = new SolidColorBrush(Color.FromRgb(64, 145, 180));
 
         public Vehicle Vehicle { get; set; }
 
@@ -32,21 +31,21 @@ namespace StormworksPriceList.Controls
 
             VehicleImage.Source = vehicle.Icon;
             NameLabel.Text = Vehicle.Name;
-            ValueLabel.Text = $"${String.Format("{0:N}", Vehicle.GetVehicleCost()).Replace(",00", "")}";//$"${Vehicle.GetVehicleCost()}";
+            ValueLabel.Text = $"${String.Format("{0:N}", Vehicle.GetVehicleCost()).Replace(",00", "")}";
             UpdatedLabel.Text = Vehicle.LastUpdated.ToString();
         }
-        //string html = String.Format("Order Total: {0:C}", moneyvalue); 
+
         void UpdateBackground()
         {
             if (IsSelected)
-                MainGrid.Background = Brush_SWBlue;
+                MainGrid.Background = StormworksPalette.Background_Blue;
             else
                 MainGrid.Background = Brushes.Transparent;
         }
 
         private void MainGrid_MouseEnter(object sender, MouseEventArgs e)
         {
-            MainGrid.Background = Brush_SWBlue;
+            MainGrid.Background = StormworksPalette.Background_Blue;
         }
 
         private void MainGrid_MouseLeave(object sender, MouseEventArgs e)
